@@ -14,4 +14,6 @@
         model {:text "Hello"}
         result (core/save! model datastore counter)]
     (let [loaded (core/get-model (result :_id) datastore)]
-      (is (= "Hello" (:text loaded))))))
+      (is (= "Hello" (:text loaded)))
+      (let [loaded (core/get-model (str (result :_id)) datastore)]
+        (is (= "Hello" (:text loaded)))))))

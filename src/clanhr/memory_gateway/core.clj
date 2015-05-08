@@ -14,7 +14,7 @@
 (def ^:private global-datastore (datastore-atom))
 (def ^:private global-counter (counter-atom))
 
-(defn- gen-id
+(defn gen-id
   "Generates an id"
   [counter-atom]
   (swap! counter-atom inc))
@@ -47,4 +47,4 @@
   ([model-id]
    (get-model model-id global-datastore))
   ([model-id datastore-atom]
-   (get @datastore-atom model-id)))
+   (get @datastore-atom (mem-id model-id))))
