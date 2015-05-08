@@ -2,7 +2,13 @@
   (:require [clojure.test :refer :all]
             [clanhr.memory-gateway.core :as core]))
 
-(deftest saving
+(deftest saving-with-global-atoms
+  (let [model {:text "Hello"}
+        result (core/save! model)]
+    (let [loaded (core/get-model (result :_id))]
+      (is (= "Hello" (:text loaded))))))
+
+(deftest saving-with-given-atoms
   (let [datastore (core/datastore-atom)
         counter (core/counter-atom)
         model {:text "Hello"}

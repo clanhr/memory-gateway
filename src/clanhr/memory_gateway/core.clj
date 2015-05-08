@@ -11,6 +11,9 @@
   []
   (atom 0))
 
+(def ^:private global-datastore (datastore-atom))
+(def ^:private global-counter (counter-atom))
+
 (defn- gen-id
   "Generates an id"
   [counter-atom]
@@ -32,12 +35,16 @@
 
 (defn save!
   "Saves a model"
-  [model datastore-atom counter-atom]
-  (let [model-with-id (with-id model counter-atom)]
-    (swap! datastore-atom assoc (:_id model-with-id) model-with-id)
-    model-with-id))
+  ([model]
+   (save! model global-datastore global-counter))
+  ([model datastore-atom counter-atom]
+   (let [model-with-id (with-id model counter-atom)]
+     (swap! datastore-atom assoc (:_id model-with-id) model-with-id)
+     model-with-id)))
 
 (defn get-model
   "Gets a model given it's id"
-  [model-id datastore-atom]
-  (get @datastore-atom model-id))
+  ([model-id]
+   (get-model model-id global-datastore))
+  ([model-id datastore-atom]
+   (get @datastore-atom model-id)))
