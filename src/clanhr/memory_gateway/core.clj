@@ -21,10 +21,12 @@
 
 (defn with-id
   "Adds an id to the hash, if none exists"
-  [model counter-atom]
-  (if (nil? (:_id model))
-    (assoc model :_id (gen-id counter-atom))
-    model))
+  ([model]
+   (with-id model global-counter))
+  ([model counter-atom]
+   (if (nil? (:_id model))
+     (assoc model :_id (gen-id counter-atom))
+     model)))
 
 (defn mem-id
   "Uniformize id type"
