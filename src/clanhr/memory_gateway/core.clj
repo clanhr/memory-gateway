@@ -50,3 +50,18 @@
    (get-model model-id global-datastore))
   ([model-id datastore-atom]
    (get @datastore-atom (mem-id model-id))))
+
+(defn paginated-query
+  "Gets a paginated-list"
+  ([query]
+   (paginated-query query global-datastore))
+  ([query datastore-atom]
+    (let [per-page (:per-page query)
+          page (:page query)
+          without-n-items (* per-page (- page 1))
+          results (take per-page (drop without-n-items @datastore-atom))
+          total (count @datastore-atom)
+          number-of-pages (quot (+ total per-page) per-page)]
+      {:data results
+       :number-of-pages number-of-pages
+       :current-page page})))
