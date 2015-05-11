@@ -14,6 +14,13 @@
 (def ^:private global-datastore (datastore-atom))
 (def ^:private global-counter (counter-atom))
 
+(defn clear-db!
+  "Erases all the database"
+  ([]
+   (clear-db! global-datastore))
+  ([datastore]
+    (reset! datastore {})))
+
 (defn gen-id
   "Generates an id"
   [counter-atom]
