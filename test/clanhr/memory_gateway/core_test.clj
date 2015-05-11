@@ -39,3 +39,15 @@
     (is (= 5 (count (:data second-query-result))))
     (is (= 2 (:number-of-pages second-query-result)))
     (is (= 2 (:current-page second-query-result)))))
+
+(deftest clear-db-test
+  (let [datastore (core/datastore-atom)
+        counter (core/counter-atom)
+        batch-result (create-15-models datastore counter)
+        before-clear-query-result (core/paginated-query {:per-page 10 :page 1} datastore)]
+    (is (= 10 (count (:data before-clear-query-result))))
+
+    (core/clear-db! datastore)
+
+    (let [after-clear-query-result (core/paginated-query {:per-page 10 :page 1} datastore)]
+      (is (= 0 (count (:data after-clear-query-result)))))))
