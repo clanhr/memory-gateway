@@ -61,7 +61,7 @@
 (defn paginated-query
   "Gets a paginated-list"
   ([query filter-fn]
-   (paginated-query query global-datastore))
+   (paginated-query query filter-fn global-datastore))
   ([query filter-fn datastore-atom]
     (let [per-page (:per-page query)
           filters (:filters query)
@@ -70,7 +70,7 @@
           store (vals @datastore-atom)
           filtered-data (if-not (nil? filter-fn) (filter filter-fn store) store)
           results (take per-page (drop without-n-items filtered-data))
-          total (count results)
+          total (count filtered-data)
           number-of-pages (quot (+ total per-page) per-page)]
       {:data results
        :number-of-pages number-of-pages
