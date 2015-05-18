@@ -24,7 +24,7 @@
 (defn gen-id
   "Generates an id"
   [counter-atom]
-  (swap! counter-atom inc))
+  (str (swap! counter-atom inc)))
 
 (defn with-id
   "Adds an id to the hash, if none exists"
@@ -38,9 +38,7 @@
 (defn mem-id
   "Uniformize id type"
   [id]
-  (if (string? id)
-    (Integer/parseInt id)
-    id))
+  id)
 
 (defn save!
   "Saves a model"
