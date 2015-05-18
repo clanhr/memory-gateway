@@ -68,3 +68,11 @@
 
     (let [after-clear-query-result (core/paginated-query {:per-page 10 :page 1} nil datastore)]
       (is (= 0 (count (:data after-clear-query-result)))))))
+
+(deftest save-and-get-with-custom-ids
+  (let [raw-id "553a779ee4b0255bad041854"
+        model {:_id raw-id}
+        saved-model (core/save! model)
+        loaded-model (core/get-model raw-id)]
+    (is (= raw-id (:_id saved-model)))
+    (is (= raw-id (:_id loaded-model)))))
