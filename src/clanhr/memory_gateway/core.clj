@@ -63,7 +63,7 @@
   ([model-id]
    (get-model model-id global-datastore))
   ([model-id datastore-atom]
-   (get @datastore-atom (mem-id model-id))))
+   (get-model-by {:field :_id :value (mem-id model-id)} datastore-atom)))
 
 (defn paginated-query
   "Gets a paginated-list"
