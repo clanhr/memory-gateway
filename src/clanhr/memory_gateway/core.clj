@@ -49,6 +49,15 @@
      (swap! datastore-atom assoc (:_id model-with-id) model-with-id)
      model-with-id)))
 
+(defn get-model-by
+  "Gets a model by a given field"
+  ([data]
+   (get-model-by data global-datastore))
+  ([data datastore-atom]
+   (first (filter (fn [model]
+            (= (:value data) ((:field data) model)))
+            (vals @datastore-atom)))))
+
 (defn get-model
   "Gets a model given it's id"
   ([model-id]

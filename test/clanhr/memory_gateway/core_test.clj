@@ -76,3 +76,11 @@
         loaded-model (core/get-model raw-id)]
     (is (= raw-id (:_id saved-model)))
     (is (= raw-id (:_id loaded-model)))))
+
+(deftest save-and-get-by-prop
+  (let [email "test@clanhr.com"
+        model {:email email}
+        saved-model (core/save! model)
+        loaded-model (core/get-model-by {:field :email :value email})]
+    (is (= email (:email saved-model)))
+    (is (= email (:email loaded-model)))))
