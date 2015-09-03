@@ -18,3 +18,11 @@
   [& args]
   (go (apply core/paginated-query args)))
 
+(defn begin!
+  [& args])
+
+(defn commit!
+  [& args])
+
+(defn rollback!
+  [& args])

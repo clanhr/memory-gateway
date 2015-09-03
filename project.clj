@@ -1,4 +1,4 @@
-(defproject clanhr/memory-gateway "0.8.0"
+(defproject clanhr/memory-gateway "0.8.1"
   :description "Simple in memory datastore for unit tests"
   :url "https://github.com/clanhr/memory-gateway"
   :license {:name "Eclipse Public License"
