@@ -84,3 +84,11 @@
         loaded-model (core/get-model-by {:field :email :value email})]
     (is (= email (:email saved-model)))
     (is (= email (:email loaded-model)))))
+
+(deftest get-all-models
+  (let [datastore (core/datastore-atom)
+        counter (core/counter-atom)
+        batch-result (create-15-models datastore counter)
+        all (core/all-models datastore)]
+    (is (= 15 (count all)))))
+
