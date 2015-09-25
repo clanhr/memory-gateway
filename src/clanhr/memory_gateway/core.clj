@@ -82,3 +82,10 @@
       {:data results
        :number-of-pages number-of-pages
        :current-page page})))
+
+(defn all-models
+  "Gets all registered models"
+  ([]
+   (all-models global-datastore))
+  ([datastore-atom]
+    (vals @datastore-atom)))
